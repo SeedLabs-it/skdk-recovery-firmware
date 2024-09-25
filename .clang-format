@@ -1,0 +1,9 @@
+# Use the style base (e.g., Google, LLVM, WebKit, etc.)
+BasedOnStyle: LLVM
+
+IndentWidth: 4              # Number of spaces for indentation
+TabWidth: 4                 # Number of spaces for a tab character
+<!-- UseTab: Never               # Always use spaces instead of tabs -->
+
+BreakBeforeBraces: Attach    # Attach braces to control statements (e.g., if, for)
+ColumnLimit: 120             # Max number of columns in a line
