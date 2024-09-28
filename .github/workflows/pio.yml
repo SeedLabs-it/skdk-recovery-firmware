@@ -1,6 +1,7 @@
 name: PlatformIO CI
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - 'firmware/**'
@@ -23,6 +24,11 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+
+    - name: Add SSH key
+      uses: webfactory/ssh-agent@v0.9.0
+      with:
+        ssh-private-key: ${{ secrets.SKDK_OTA_PRO_PRIVKEY }}
 
     - name: Cache pip
       uses: actions/cache@v2
@@ -47,12 +53,12 @@ jobs:
         python -m pip install --upgrade pip
         pip install --upgrade platformio
 
-    - name: Build Firmware (seedlabs_devkit)
+    - name: Build Firmware (skdk_recovery_firmware)
       # Run regardless of other build step failures, as long as setup steps completed
       if: always() && steps.pio_install.outcome == 'success'
       run: |
         pio run \
-          -e seedlabs_devkit
+          -e skdk_recovery_firmware
 
     # - name: Build Firmware (nanofoc)
     #   # Run regardless of other build step failures, as long as setup steps completed

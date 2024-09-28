@@ -15,7 +15,7 @@ const uint8_t TEXT_START_X = TFT_WIDTH / 2;
 const uint8_t TEXT_START_Y = QR_Y + (QR_CODE_SIZE / 2) * 2 + 10;
 
 void DisplayTask::run() {
-    LOGI("DisplayTask::run");
+    LOG("DisplayTask::run");
 
     lv_skdk_create();
 

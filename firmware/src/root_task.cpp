@@ -1,12 +1,5 @@
 #include "root_task.h"
 
-// #if !SK_LOGGING
-// // static LoggingTask logging_task();
-// // static LoggingTask *logging_task_p = LoggingTask::getInstance();
-// #else
-// static LoggingTask *logging_task_p = nullptr;
-// #endif
-
 #if SK_DISPLAY
 static DisplayTask display_task(0);
 // static DisplayTask *display_task_p = &display_task;
@@ -21,7 +14,7 @@ static WiFiTask wifi_task(1);
 static WiFiTask *wifi_task_p = nullptr;
 #endif
 
-RootTask::RootTask(const BaseType_t coreId) : Task("RootTask", 1024 * 16, 1, coreId) {}
+RootTask::RootTask(const BaseType_t coreId) : Task("RootTask", 1024 * 8, 1, coreId) {}
 RootTask::~RootTask() {}
 
 void RootTask::run() {
@@ -33,7 +26,7 @@ void RootTask::run() {
 #endif
     delay(250); // Allow time for logging to initialize
 
-    LOGI("RootTask::run");
+    LOG("RootTask::run");
 
     // TODO move function etc
     //  LED STUFF
@@ -76,6 +69,7 @@ void RootTask::run() {
                 FastLED.setBrightness(brightness - 1);
             }
             FastLED.show();
+            LOGE("Brightness: %d", FastLED.getBrightness());
         }
         delay(5);
     }
