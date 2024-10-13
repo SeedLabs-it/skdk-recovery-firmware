@@ -18,14 +18,6 @@ RootTask::RootTask(const BaseType_t coreId) : Task("RootTask", 1024 * 8, 1, core
 RootTask::~RootTask() {}
 
 void RootTask::run() {
-    stream_.begin(115200);
-    stream_.setTxBufferSize(1024);
-    delay(500); // Allow time for serial to initialize
-#if !SK_LOGGING
-    Logging::setAdapter(new FreeRTOSAdapter(new SerialProtocolPlaintext(stream_), "FreeRTOSAdapter", 1024 * 16, 0, 0));
-#endif
-    delay(250); // Allow time for logging to initialize
-
     LOG("RootTask::run");
 
     // TODO move function etc
@@ -69,7 +61,6 @@ void RootTask::run() {
                 FastLED.setBrightness(brightness - 1);
             }
             FastLED.show();
-            LOGE("Brightness: %d", FastLED.getBrightness());
         }
         delay(5);
     }
